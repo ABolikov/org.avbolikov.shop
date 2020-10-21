@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="bolikov" runInTransaction="true">
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter="\nGO"
+                 path="01-create-user-and-role-tables.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>
+            <sqlFile dbms="mysql"
+                     encoding="utf8"
+                     endDelimiter="\nGO"
+                     path="01-drop-user-and-role-tables.sql"
+                     relativeToChangelogFile="true"
+                     splitStatements="true"
+                     stripComments="true"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2" author="bolikov" runInTransaction="true">
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter="\nGO"
+                 path="01-create-product-and-category-and-brand-tables.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback>
+            <sqlFile dbms="mysql"
+                     encoding="utf8"
+                     endDelimiter="\nGO"
+                     path="01-drop-product-and-category-and-brand-tables.sql"
+                     relativeToChangelogFile="true"
+                     splitStatements="true"
+                     stripComments="true"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="3" author="bolikov" runInTransaction="true">
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter="\nGO"
+                 path="01-insert-default-users.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <rollback/>
+    </changeSet>
+    
+</databaseChangeLog>
