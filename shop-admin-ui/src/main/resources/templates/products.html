@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragmentsAdmin :: head}"></head>
+
+<body class="bg-light">
+
+<div th:replace="~{fragmentsAdmin :: header}"></div>
+
+<div class="d-flex">
+
+    <div th:replace="~{fragmentsAdmin :: menu}"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4"> Продукты </h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card mb-4">
+                    <a class="btn btn-primary" th:href="@{/admin/products/add}">Добавить продукт</a>
+                </div>
+                <table class="table table-bordered my-2" id="AdminTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Наименование</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col">Брен</th>
+                        <th scope="col">Категория продукта</th>
+                        <th scope="col">Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.cost}"></td>
+                        <td th:text="${product.brand}"></td>
+                        <td th:text="${product.categories}"></td>
+                        <td>
+                            <form th:action="@{/admin/product/{id}/delete(id=${product.id})}" th:method="delete">
+                                <a class="btn btn-success"
+                                   th:href="@{/admin/product/{id}/edit(id=${product.id})}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="~{fragmentsAdmin :: script}"></div>
+
+</body>
+</html>

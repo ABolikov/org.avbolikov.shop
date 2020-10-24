@@ -1,5 +1,7 @@
 package org.avbolikov.shop.entity.products;
 
+import org.avbolikov.shop.validation.product.NotBlankBigDecimal;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
@@ -14,18 +16,15 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
+    @NotBlank(message = "Необходимо указать наименование продукта")
     @Column(name = "name")
     private String name;
 
-    @NotBlank
+    @NotBlankBigDecimal(message = "Значение должно быть > 0")
     @Column(name = "cost")
     private BigDecimal cost;
 
-    @ManyToMany(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "product_category",
             joinColumns = @JoinColumn(name = "product_id"),
@@ -33,19 +32,19 @@ public class Product {
     )
     private List<Category> categories;
 
-    @ManyToOne(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
     public Product() {
     }
 
-    public Product(Integer id, String name) {
+    public Product(Integer id, String name, BigDecimal cost, Brand brand, List<Category> categories) {
         this.id = id;
         this.name = name;
+        this.cost = cost;
+        this.brand = brand;
+        this.categories = categories;
     }
 
     public Integer getId() {

@@ -1,7 +1,9 @@
 package org.avbolikov.shop.entity.users;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,24 +15,23 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
+    @NotBlank(message = "Необходимо указать логин")
     @Column(name = "name")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "Необходимо указать пароль")
     @Column(name = "password")
     private String password;
 
+    @Email(message = "Проверте указанный почтовый адрес")
     @Column
     private String email;
 
     @Column
     private Integer age;
 
-    @ManyToMany(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
+    @NotEmpty(message = "Необходимо выбрать роли для юзера")
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -41,10 +42,12 @@ public class User {
     public User() {
     }
 
-    public User(Integer id, String name, String password, List<Role> roles) {
+    public User(Integer id, String name, String password, String email, Integer age, List<Role> roles) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.email = email;
+        this.age = age;
         this.roles = roles;
     }
 
@@ -105,7 +108,15 @@ public class User {
 
         if (!Objects.equals(id, user.id)) return false;
         if (!Objects.equals(name, user.name)) return false;
-        return password.equals(user.password);
+        if (!Objects.equals(password, user.password)) return false;
+        if (!Objects.equals(email, user.email)) return false;
+        if (!Objects.equals(age, user.age)) return false;
+        return Objects.equals(roles, user.roles);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     @Override
@@ -113,7 +124,9 @@ public class User {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (age != null ? age.hashCode() : 0);
+        result = 31 * result + (roles != null ? roles.hashCode() : 0);
         return result;
     }
-
 }

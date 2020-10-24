@@ -3,7 +3,7 @@ CREATE TABLE product
     id       INT            NOT NULL auto_increment,
     name     VARCHAR(255)   NOT NULL,
     cost     DECIMAL(65, 2) NOT NULL,
-    brand_id INT(11)        NOT NULL,
+    brand_id INT(11)        NULL,
     PRIMARY KEY (id)
 ) engine = InnoDB;
 GO

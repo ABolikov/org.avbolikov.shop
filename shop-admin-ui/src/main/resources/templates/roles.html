@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragmentsAdmin :: head}"></head>
+
+<body class="bg-light">
+
+<div th:replace="~{fragmentsAdmin :: header}"></div>
+
+<div class="d-flex">
+
+    <div th:replace="~{fragmentsAdmin :: menu}"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4"> Роли пользователей </h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card mb-4">
+                    <a class="btn btn-primary" th:href="@{/admin/roles/add}">Добавить роль</a>
+                </div>
+                <table class="table table-bordered my-2" id ="AdminTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Назввание роли</th>
+                        <th scope="col">Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="role : ${rolePage}">
+                        <th scope="row" th:text="${role.id}">1</th>
+                        <td th:text="${role.name}">Наименование роли</td>
+                        <td>
+                            <form class="d-inline" th:action="@{/admin/role/{id}/delete(id = ${role.id})}"
+                                  th:method="delete">
+                                <a class="btn btn-success" th:href="@{/admin/role/{id}/edit(id = ${role.id})}"><i
+                                        class="fas fa-edit"></i></a>
+                                <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="~{fragmentsAdmin :: script}"></div>
+
+</body>
+</html>

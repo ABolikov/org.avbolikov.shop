@@ -1,6 +1,7 @@
 package org.avbolikov.shop.entity.products;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,12 +13,12 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Необходимо указать наименование категории")
     @Column(name = "name")
     private String name;
 
     @ManyToMany(
             mappedBy = "categories",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     private List<Product> products;
@@ -76,4 +77,10 @@ public class Category {
     public String toString() {
         return name;
     }
+
+    @PreRemove
+    public void preRemove() {
+        products.forEach(product -> product.getCategories().remove(this));
+    }
+
 }

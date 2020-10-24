@@ -1,5 +1,8 @@
 package org.avbolikov.shop.entity.users;
 
+
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -13,13 +16,12 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
+    @NotBlank(message = "Поле \"Наименование роли\" обязательно для заполнения")
     @Column(name = "name")
     private String name;
 
     @ManyToMany(
             mappedBy = "roles",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     public List<User> users;
@@ -76,6 +78,11 @@ public class Role {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @PreRemove
+    public void preRemove() {
+        users.forEach(user -> user.getRoles().remove(this));
     }
 
     @Override
