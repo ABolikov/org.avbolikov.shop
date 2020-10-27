@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+<!--Настройки при которых дожны выполняться скрипты из файла -->
+    <preConditions>
+        <dbms type="mysql"/>
+        <runningAs username="root"/>
+    </preConditions>
+
+    <changeSet id="0" author="bolikov">
+        <tagDatabase tag="db_init"/>
+    </changeSet>
+
+<!--Подгружаем файл с changeSet-ами содержащими пути на скрипты SQL-->
+    <include file="v-1.0/db.changelog-v1.0.xml" relativeToChangelogFile="true"/>
+
+    <changeSet id="10" author="bolikov">
+        <tagDatabase tag="v-1.0"/>
+    </changeSet>
+
+</databaseChangeLog>

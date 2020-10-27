@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragmentsAdmin :: head}"></head>
+
+<body class="bg-light">
+
+<div th:replace="~{fragmentsAdmin :: header}"></div>
+
+<div class="d-flex">
+
+    <div th:replace="~{fragmentsAdmin :: menu}"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4"> Админка </h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                Это пустая страница, которую можно использовать в качестве отправной точки.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="~{fragmentsAdmin :: script}"></div>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragmentsAdmin :: head}"></head>
+
+<body class="bg-light">
+
+<div th:replace="~{fragmentsAdmin :: header}"></div>
+
+<div class="d-flex">
+
+    <div th:replace="~{fragmentsAdmin :: menu}"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4"> Категории товаров </h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card mb-4">
+                    <a class="btn btn-primary" th:href="@{/admin/categories/add}">Добавить категорию</a>
+                </div>
+                <table class="table table-bordered my-2" id="AdminTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Наименование</th>
+                        <th scope="col">Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="category : ${categories}">
+                        <td th:text="${category.id}"></td>
+                        <td th:text="${category.name}"></td>
+                        <td>
+                            <form th:action="@{/admin/category/{id}/delete(id=${category.id})}" th:method="delete">
+                                <a class="btn btn-success"
+                                   th:href="@{/admin/category/{id}/edit(id=${category.id})}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="~{fragmentsAdmin :: script}"></div>
+
+</body>
+</html>

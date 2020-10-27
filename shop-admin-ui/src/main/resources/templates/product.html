@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragmentsAdmin :: head}"></head>
+
+<body class="bg-light">
+
+<div th:replace="~{fragmentsAdmin :: header}"></div>
+
+<div class="d-flex">
+
+    <div th:replace="~{fragmentsAdmin :: menu}"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4"> Добавление нового продукта </h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <form action="#" th:action="@{/admin/product/add}" th:object="${product}" method="post">
+                    <input type="hidden" class="form-control" th:field="*{id}">
+                    <div class="form-group">
+                        <label>Наименование товара</label>
+                        <input type="text" class="form-control" th:field="*{name}" placeholder="Введите наименование товара">
+                        <label id="titleError" class="form-text text-error"
+                               th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Validation error</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Цена</label>
+                        <input type="text" class="form-control" th:field="*{cost}" placeholder="Введите цену продукта">
+                        <label id="costError" class="form-text text-error"
+                               th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}">Validation error</label>
+                    </div>
+                    <div class="form-group blu-margin">
+                        <label>Брен</label>
+                        <select class="form-control" id="brand" name="brand" th:field="*{brand}">
+                            <option value="0">Выберите брен</option>
+                            <option th:each="brandItem : ${brands}" th:value="${brandItem.id}" th:text="${brandItem.name}"></option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Категории продуктов</label>
+                        <div class="checkbox" th:each="category : ${allCategories}">
+
+                            <label> <input th:value="${category.id}" name="categories" th:field="*{categories}" type="checkbox"/>
+                                <span th:text="${category.name}"> Название категории </span>
+                            </label>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary" th:href="@{/admin/products}">Назад</a>
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="~{fragmentsAdmin :: script}"></div>
+
+</body>
+</html>
