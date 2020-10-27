@@ -13,12 +13,11 @@
     <div th:replace="~{fragmentsAdmin :: menu}"></div>
 
     <div class="content p-4">
-        <h2 class="mb-4"> Добавление новой категории </h2>
-
+        <h2 class="mb-4">Добавление новой категории</h2>
         <div class="card mb-4">
             <div class="card-body">
                 <form action="#" th:action="@{/admin/category/add}" th:object="${category}" method="post">
-                    <input type="hidden" class="form-control" th:field="*{id}">
+                    <input type="hidden" th:field="*{id}">
                     <div class="form-group">
                         <label>Наименование категории</label>
                         <input type="text" class="form-control" th:field="*{name}" placeholder="Введите наименование категории">

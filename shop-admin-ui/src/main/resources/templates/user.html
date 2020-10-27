@@ -13,8 +13,7 @@
     <div th:replace="~{fragmentsAdmin :: menu}"></div>
 
     <div class="content p-4">
-        <h2 class="mb-4"> Добавление нового пользователя</h2>
-
+        <h2 class="mb-4">Добавление нового пользователя</h2>
         <div class="card mb-4">
             <div class="card-body">
                 <form th:action="@{/admin/user/update}" method="post" th:object="${user}">
@@ -46,7 +45,7 @@
                     </div>
                     <div>
                         <label>Роли пользователя</label>
-                        <div class="checkbox" th:each="role : ${allRoles}">
+                        <div class="checkbox" th:each="role : ${roles}">
                             <label> <input th:value="${role.id}" name="roles" th:field="*{roles}" type="checkbox"/>
                                 <span th:text="${role.name}">Наименование роли</span>
                             </label>

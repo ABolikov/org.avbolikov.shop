@@ -13,8 +13,7 @@
     <div th:replace="~{fragmentsAdmin :: menu}"></div>
 
     <div class="content p-4">
-        <h2 class="mb-4"> Добавление новой роли </h2>
-
+        <h2 class="mb-4">Добавление новой роли</h2>
         <div class="card mb-4">
             <div class="card-body">
                 <form th:action="@{/admin/role/update}" method="post" th:object="${role}">

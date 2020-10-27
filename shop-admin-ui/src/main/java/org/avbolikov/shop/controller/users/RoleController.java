@@ -2,7 +2,8 @@ package org.avbolikov.shop.controller.users;
 
 import org.avbolikov.shop.entity.users.Role;
 import org.avbolikov.shop.exception.NotFoundException;
-import org.avbolikov.shop.repositories.RoleRepository;
+import org.avbolikov.shop.representation.users.RoleRepr;
+import org.avbolikov.shop.service.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,41 +14,44 @@ import javax.validation.Valid;
 @Controller
 public class RoleController {
 
+    private final RoleServiceImpl roleService;
+
     @Autowired
-    private RoleRepository roleRepository;
+    public RoleController(RoleServiceImpl roleService) {
+        this.roleService = roleService;
+    }
 
     @GetMapping("/admin/roles")
-    public String allRole(Model model) {
-        model.addAttribute("rolePage", roleRepository.findAll());
+    public String getAllRole(Model model) {
+        model.addAttribute("roles", roleService.findAll());
         return "roles";
     }
 
     @GetMapping("/admin/roles/add")
     public String formAddRole(Model model) {
-        model.addAttribute("role", new Role());
+        model.addAttribute("role", new RoleRepr());
         return "role";
     }
 
-
     @GetMapping("/admin/role/{id}/edit")
     public String editRole(@PathVariable("id") Integer id, Model model) {
-        Role role = roleRepository.findById(id).orElseThrow(new NotFoundException(null, "Role"));
+        RoleRepr role = roleService.findById(id).orElseThrow(new NotFoundException(null, "Role"));
         model.addAttribute("role", role);
         return "role";
     }
 
     @PostMapping("/admin/role/update")
-    public String updateRole(@Valid Role role, BindingResult bindingResult) {
+    public String updateRole(@Valid RoleRepr role, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "role";
         }
-        roleRepository.save(role);
+        roleService.save(role);
         return "redirect:/admin/roles";
     }
 
     @DeleteMapping("/admin/role/{id}/delete")
     public String deleteRole(@PathVariable("id") Integer id) {
-        roleRepository.deleteById(id);
+        roleService.delete(id);
         return "redirect:/admin/roles";
     }
 }
