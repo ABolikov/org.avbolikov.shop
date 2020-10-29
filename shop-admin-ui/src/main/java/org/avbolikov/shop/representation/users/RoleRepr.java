@@ -48,6 +48,6 @@ public class RoleRepr implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return "ROLE_" + name;
+        return name;
     }
 }

@@ -34,7 +34,8 @@ public class SecurityConfiguration {
     public static class UiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests()
+            http
+                    .authorizeRequests()
                     .antMatchers("/").permitAll()
                     .antMatchers("/admin", "/admin/**").hasAnyRole("ADMIN")
                     .and()

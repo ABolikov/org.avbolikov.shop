@@ -16,10 +16,7 @@ public class Role {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(
-            mappedBy = "roles",
-            fetch = FetchType.LAZY
-    )
+    @ManyToMany(mappedBy = "roles")
     public List<User> users;
 
     public Role() {
