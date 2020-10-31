@@ -1,4 +1,4 @@
-package org.avbolikov.shop.service;
+package org.avbolikov.shop.service.users;
 
 import org.avbolikov.shop.representation.users.RoleRepr;
 

@@ -1,7 +1,6 @@
-package org.avbolikov.shop.service;
+package org.avbolikov.shop.service.users;
 
 import org.avbolikov.shop.entity.users.Role;
-import org.avbolikov.shop.entity.users.User;
 import org.avbolikov.shop.repositories.RoleRepository;
 import org.avbolikov.shop.representation.users.RoleRepr;
 import org.springframework.beans.factory.annotation.Autowired;

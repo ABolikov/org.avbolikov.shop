@@ -1,9 +1,8 @@
 package org.avbolikov.shop.controller.users;
 
-import org.avbolikov.shop.entity.users.Role;
 import org.avbolikov.shop.exception.NotFoundException;
 import org.avbolikov.shop.representation.users.RoleRepr;
-import org.avbolikov.shop.service.RoleServiceImpl;
+import org.avbolikov.shop.service.users.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

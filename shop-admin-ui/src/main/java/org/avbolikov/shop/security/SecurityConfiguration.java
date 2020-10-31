@@ -1,6 +1,6 @@
 package org.avbolikov.shop.security;
 
-import org.avbolikov.shop.service.UserServiceImpl;
+import org.avbolikov.shop.service.users.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

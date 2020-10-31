@@ -2,7 +2,7 @@ package org.avbolikov.shop.security;
 
 import org.avbolikov.shop.exception.NotFoundException;
 import org.avbolikov.shop.representation.users.RoleRepr;
-import org.avbolikov.shop.service.UserServiceImpl;
+import org.avbolikov.shop.service.users.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
