@@ -30,12 +30,14 @@ public class ProductController {
 
     @GetMapping("/admin/products")
     public String allProducts(Model model) {
+        model.addAttribute("activePage", "Product");
         model.addAttribute("products", productService.findAll());
         return "products";
     }
 
     @GetMapping("/admin/products/add")
     public String formAddProduct(Model model) {
+        model.addAttribute("activePage", "Product");
         model.addAttribute("product", new ProductRepr());
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("brands", brandRepository.findAll());
@@ -45,6 +47,7 @@ public class ProductController {
     @PostMapping("/admin/product/add")
     public String addProduct(ProductRepr productRepr, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("activePage", "Product");
             model.addAttribute("categories",  categoryRepository.findAll());
             model.addAttribute("brands",  brandRepository.findAll());
             return "product";
@@ -55,8 +58,9 @@ public class ProductController {
 
     @GetMapping("/admin/product/{id}/edit")
     public String getProduct(@PathVariable("id") Integer id, Model model) {
-        ProductRepr productRepr = productService.findById(id).orElseThrow(new NotFoundException(null, "Product"));
-        model.addAttribute("product", productRepr);
+        model.addAttribute("activePage", "Product");
+        model.addAttribute("product",
+                productService.findById(id).orElseThrow(new NotFoundException("Product")));
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("brands", brandRepository.findAll());
         return "product";

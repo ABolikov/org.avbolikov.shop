@@ -27,6 +27,6 @@ public class UserAuthService implements UserDetailsService {
                         user.getName(),
                         user.getPassword(),
                         user.getRoles().stream().map(RoleRepr::new).collect(Collectors.toList())))
-                .orElseThrow(() -> new NotFoundException("User not found", "User"));
+                .orElseThrow(() -> new NotFoundException("User"));
     }
 }

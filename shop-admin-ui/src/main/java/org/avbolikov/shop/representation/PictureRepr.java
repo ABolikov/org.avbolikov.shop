@@ -1,8 +1,10 @@
-package org.avbolikov.shop.representation.products;
+package org.avbolikov.shop.representation;
 
-import org.avbolikov.shop.entity.products.Picture;
+import org.avbolikov.shop.entity.pictures.Picture;
 
-public class PictureRepr {
+import java.io.Serializable;
+
+public class PictureRepr implements Serializable {
 
     private Integer id;
 

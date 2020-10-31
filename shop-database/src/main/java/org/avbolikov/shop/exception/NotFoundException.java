@@ -5,8 +5,7 @@ import java.util.function.Supplier;
 public class NotFoundException extends RuntimeException implements Supplier<NotFoundException> {
     private String nameEntity;
 
-    public NotFoundException(String message, String nameEntity) {
-        super(message);
+    public NotFoundException(String nameEntity) {
         this.nameEntity = nameEntity;
     }
 

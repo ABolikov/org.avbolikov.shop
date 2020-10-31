@@ -1,7 +1,7 @@
 package org.avbolikov.shop.service.products;
 
-import org.avbolikov.shop.entity.products.Picture;
-import org.avbolikov.shop.entity.products.PictureData;
+import org.avbolikov.shop.entity.pictures.Picture;
+import org.avbolikov.shop.entity.pictures.PictureData;
 import org.avbolikov.shop.entity.products.Product;
 import org.avbolikov.shop.repositories.ProductRepository;
 import org.avbolikov.shop.representation.products.ProductRepr;

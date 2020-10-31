@@ -1,12 +1,13 @@
-package org.avbolikov.shop.entity.products;
+package org.avbolikov.shop.entity.pictures;
 
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "picture_data")
-public class PictureData {
+public class PictureData  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

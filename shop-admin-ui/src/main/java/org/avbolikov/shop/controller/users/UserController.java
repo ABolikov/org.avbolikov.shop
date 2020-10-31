@@ -27,12 +27,14 @@ public class UserController {
 
     @GetMapping("/admin/users")
     public String getAllUsers(Model model) {
+        model.addAttribute("activePage", "User");
         model.addAttribute("users", userService.findAll());
         return "users";
     }
 
     @GetMapping("/admin/users/add")
     public String addUser(Model model) {
+        model.addAttribute("activePage", "User");
         model.addAttribute("user",  new UserRepr());
         model.addAttribute("roles", roleService.findAll());
         return "user";
@@ -40,7 +42,9 @@ public class UserController {
 
     @GetMapping("/admin/user/{id}/edit")
     public String editUser(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("user", userService.findById(id).orElseThrow(new NotFoundException(null, "User")));
+        model.addAttribute("activePage", "User");
+        model.addAttribute("user",
+                userService.findById(id).orElseThrow(new NotFoundException("User")));
         model.addAttribute("roles", roleService.findAll());
         return "user";
     }
@@ -48,6 +52,7 @@ public class UserController {
     @PostMapping("/admin/user/update")
     public String updateUser(@Valid UserRepr user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("activePage", "User");
             model.addAttribute("roles", roleService.findAll());
             return "user";
         }

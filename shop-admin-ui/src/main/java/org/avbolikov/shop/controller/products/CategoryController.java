@@ -22,19 +22,22 @@ public class CategoryController {
 
     @GetMapping("/admin/categories")
     public String allCategories(Model model) {
+        model.addAttribute("activePage", "Category");
         model.addAttribute("categories", categoryRepository.findAll());
         return "categories";
     }
 
     @GetMapping("/admin/categories/add")
     public String formAddCategory(Model model) {
+        model.addAttribute("activePage", "Category");
         model.addAttribute("category", new Category());
         return "category";
     }
 
     @PostMapping("/admin/category/add")
-    public String addCategory(@Valid Category category, BindingResult bindingResult) {
+    public String addCategory(@Valid Category category, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("activePage", "Category");
             return "category";
         }
         categoryRepository.save(category);
@@ -43,8 +46,9 @@ public class CategoryController {
 
     @GetMapping("/admin/category/{id}/edit")
     public String getCategory(@PathVariable("id") Integer id, Model model) {
-        Category category = categoryRepository.findById(id).orElseThrow(new NotFoundException(null, "Category"));
-        model.addAttribute("category", category);
+        model.addAttribute("activePage", "Category");
+        model.addAttribute("category",
+                categoryRepository.findById(id).orElseThrow(new NotFoundException("Category")));
         return "category";
     }
 

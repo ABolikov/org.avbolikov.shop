@@ -1,6 +1,6 @@
-package org.avbolikov.shop.controller.products;
+package org.avbolikov.shop.controller;
 
-import org.avbolikov.shop.entity.products.Picture;
+import org.avbolikov.shop.entity.pictures.Picture;
 import org.avbolikov.shop.exception.NotFoundException;
 import org.avbolikov.shop.repositories.PictureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +32,6 @@ public class PictureController {
             response.getOutputStream().write(picture.get().getPictureData().getData());
             return;
         }
-        throw new NotFoundException(null, "Picture");
+        throw new NotFoundException("Picture");
     }
 }

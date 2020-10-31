@@ -1,15 +1,17 @@
 package org.avbolikov.shop.entity.products;
 
+import org.avbolikov.shop.entity.pictures.Picture;
 import org.avbolikov.shop.validation.product.NotBlankBigDecimal;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

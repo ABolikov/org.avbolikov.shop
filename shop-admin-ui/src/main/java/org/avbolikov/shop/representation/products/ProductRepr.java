@@ -3,13 +3,15 @@ package org.avbolikov.shop.representation.products;
 import org.avbolikov.shop.entity.products.Brand;
 import org.avbolikov.shop.entity.products.Category;
 import org.avbolikov.shop.entity.products.Product;
+import org.avbolikov.shop.representation.PictureRepr;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProductRepr {
+public class ProductRepr implements Serializable {
 
     private Integer id;
 

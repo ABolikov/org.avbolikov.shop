@@ -1,11 +1,14 @@
-package org.avbolikov.shop.entity.products;
+package org.avbolikov.shop.entity.pictures;
+
+import org.avbolikov.shop.entity.products.Product;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "picture")
-public class Picture {
+public class Picture implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

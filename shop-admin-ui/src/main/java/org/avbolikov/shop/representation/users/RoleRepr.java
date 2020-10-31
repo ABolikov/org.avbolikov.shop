@@ -4,9 +4,10 @@ import org.avbolikov.shop.entity.users.Role;
 import org.avbolikov.shop.entity.users.User;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RoleRepr implements GrantedAuthority {
+public class RoleRepr implements GrantedAuthority, Serializable {
 
     private Integer id;
 

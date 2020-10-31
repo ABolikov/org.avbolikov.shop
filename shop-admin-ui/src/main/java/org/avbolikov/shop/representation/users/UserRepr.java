@@ -3,9 +3,10 @@ package org.avbolikov.shop.representation.users;
 import org.avbolikov.shop.entity.users.Role;
 import org.avbolikov.shop.entity.users.User;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class UserRepr {
+public class UserRepr implements Serializable {
 
     private Integer id;
 
