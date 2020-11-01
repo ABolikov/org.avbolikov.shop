@@ -13,7 +13,6 @@ public class Role implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Поле \"Наименование роли\" обязательно для заполнения")
     @Column(name = "name")
     private String name;
 

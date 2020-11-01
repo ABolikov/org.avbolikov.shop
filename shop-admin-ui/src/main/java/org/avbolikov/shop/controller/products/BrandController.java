@@ -18,7 +18,6 @@ import java.io.IOException;
 @Controller
 public class BrandController {
 
-    @Autowired
     private final BrandServiceImpl brandService;
 
     @Autowired
@@ -36,7 +35,7 @@ public class BrandController {
     @GetMapping("/admin/brands/add")
     public String formAddBrand(Model model) {
         model.addAttribute("activePage", "Brand");
-        model.addAttribute("brand", new BrandRepr());
+        model.addAttribute("brandRepr", new BrandRepr());
         return "brand";
     }
 
@@ -53,7 +52,7 @@ public class BrandController {
     @GetMapping("/admin/brand/{id}/edit")
     public String getBrand(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("activePage", "Brand");
-        model.addAttribute("brand", brandService.findById(id).orElseThrow(new NotFoundException("Brand")));
+        model.addAttribute("brandRepr", brandService.findById(id).orElseThrow(new NotFoundException("Brand")));
         return "brand";
     }
 

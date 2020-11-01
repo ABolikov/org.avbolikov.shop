@@ -4,8 +4,10 @@ import org.avbolikov.shop.entity.products.Brand;
 import org.avbolikov.shop.entity.products.Category;
 import org.avbolikov.shop.entity.products.Product;
 import org.avbolikov.shop.representation.PictureRepr;
+import org.avbolikov.shop.validation.product.NotBlankBigDecimal;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,8 +17,10 @@ public class ProductRepr implements Serializable {
 
     private Integer id;
 
+    @NotBlank(message = "Необходимо указать наименование продукта")
     private String name;
 
+    @NotBlankBigDecimal(message = "Значение должно быть > 0")
     private BigDecimal cost;
 
     private List<Category> categories;

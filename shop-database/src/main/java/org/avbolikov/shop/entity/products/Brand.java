@@ -16,7 +16,6 @@ public class Brand implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Необходимо указать наименование бренда")
     @Column(name = "name")
     private String name;
 

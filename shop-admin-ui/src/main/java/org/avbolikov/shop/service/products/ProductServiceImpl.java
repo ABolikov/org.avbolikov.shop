@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -53,16 +54,22 @@ public class ProductServiceImpl implements ProductService {
         product.setCategories(productRepr.getCategories());
         if (productRepr.getNewPictures() != null) {
             for (MultipartFile newPicture : productRepr.getNewPictures()) {
-                if (product.getPictures() == null) {
-                    product.setPictures(new ArrayList<>());
-                }
-                try {
-                    product.getPictures().add(new Picture(
-                            newPicture.getOriginalFilename(),
-                            newPicture.getContentType(),
-                            new PictureData(newPicture.getBytes())));
-                } catch (IOException exception) {
-                    exception.fillInStackTrace();
+                if (!Objects.equals(newPicture.getContentType(), "application/octet-stream")) {
+                    if (productRepr.getId() == null || productRepository.findById(productRepr.getId()).get().getPictures() == null) {
+                        product.setPictures(new ArrayList<>());
+                    } else {
+                        product.setPictures(productRepository.findById(productRepr.getId()).get().getPictures());
+                    }
+                    try {
+                        product.getPictures().add(new Picture(
+                                newPicture.getOriginalFilename(),
+                                newPicture.getContentType(),
+                                new PictureData(newPicture.getBytes())));
+                    } catch (IOException exception) {
+                        exception.fillInStackTrace();
+                    }
+                } else if (productRepr.getId() != null) {
+                    product.setPictures(productRepository.findById(productRepr.getId()).get().getPictures());
                 }
             }
         }

@@ -35,7 +35,7 @@ public class UserController {
     @GetMapping("/admin/users/add")
     public String addUser(Model model) {
         model.addAttribute("activePage", "User");
-        model.addAttribute("user",  new UserRepr());
+        model.addAttribute("userRepr",  new UserRepr());
         model.addAttribute("roles", roleService.findAll());
         return "user";
     }
@@ -43,20 +43,20 @@ public class UserController {
     @GetMapping("/admin/user/{id}/edit")
     public String editUser(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("activePage", "User");
-        model.addAttribute("user",
+        model.addAttribute("userRepr",
                 userService.findById(id).orElseThrow(new NotFoundException("User")));
         model.addAttribute("roles", roleService.findAll());
         return "user";
     }
 
     @PostMapping("/admin/user/update")
-    public String updateUser(@Valid UserRepr user, BindingResult bindingResult, Model model) {
+    public String updateUser(@Valid UserRepr userRepr, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("activePage", "User");
             model.addAttribute("roles", roleService.findAll());
             return "user";
         }
-        userService.save(user);
+        userService.save(userRepr);
         return "redirect:/admin/users";
     }
 

@@ -3,6 +3,9 @@ package org.avbolikov.shop.representation.users;
 import org.avbolikov.shop.entity.users.Role;
 import org.avbolikov.shop.entity.users.User;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,14 +13,18 @@ public class UserRepr implements Serializable {
 
     private Integer id;
 
+    @NotBlank(message = "Необходимо указать логин")
     private String name;
 
+    @NotBlank(message = "Необходимо указать пароль")
     private String password;
 
+    @Email(message = "Проверте указанный почтовый адрес")
     private String email;
 
     private Integer age;
 
+    @NotEmpty(message = "Необходимо выбрать роли для юзера")
     public List<Role> roles;
 
     public UserRepr() {

@@ -3,7 +3,6 @@ package org.avbolikov.shop.service.products;
 import org.avbolikov.shop.entity.pictures.Picture;
 import org.avbolikov.shop.entity.pictures.PictureData;
 import org.avbolikov.shop.entity.products.Brand;
-import org.avbolikov.shop.entity.products.Product;
 import org.avbolikov.shop.repositories.BrandRepository;
 import org.avbolikov.shop.repositories.PictureRepository;
 import org.avbolikov.shop.representation.products.BrandRepr;
@@ -14,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -54,13 +54,21 @@ public class BrandServiceImpl implements BrandService {
         brand.setProducts(brandRepr.getProducts());
         if (brandRepr.getNewPictures() != null) {
             for (MultipartFile newPicture : brandRepr.getNewPictures()) {
-                if (brandRepository.findById(brandRepr.getId()).get().getPicture() != null) {
-                    pictureRepository.deleteById(brand.getPicture().getId());
+                if (!Objects.equals(newPicture.getContentType(), "application/octet-stream")) {
+                    if (brandRepr.getId() != null &&
+                            brandRepository.findById(brandRepr.getId()).get().getPicture() != null) {
+                        int test = brandRepository.findById(brandRepr.getId()).get().getPicture().getId();
+                        pictureRepository.deleteById(test);
+                    }
+                    brand.setPicture(new Picture(
+                            newPicture.getOriginalFilename(),
+                            newPicture.getContentType(),
+                            new PictureData(newPicture.getBytes())));
+                } else {
+                    if (brandRepr.getId() != null) {
+                        brand.setPicture(brandRepository.findById(brandRepr.getId()).get().getPicture());
+                    }
                 }
-                brand.setPicture(new Picture(
-                        newPicture.getOriginalFilename(),
-                        newPicture.getContentType(),
-                        new PictureData(newPicture.getBytes())));
             }
         }
         brandRepository.save(brand);

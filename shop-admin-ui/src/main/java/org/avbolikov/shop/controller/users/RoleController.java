@@ -1,6 +1,5 @@
 package org.avbolikov.shop.controller.users;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.avbolikov.shop.exception.NotFoundException;
 import org.avbolikov.shop.representation.users.RoleRepr;
 import org.avbolikov.shop.service.users.RoleServiceImpl;
@@ -31,25 +30,25 @@ public class RoleController {
     @GetMapping("/admin/roles/add")
     public String formAddRole(Model model) {
         model.addAttribute("activePage", "Role");
-        model.addAttribute("role", new RoleRepr());
+        model.addAttribute("roleRepr", new RoleRepr());
         return "role";
     }
 
     @GetMapping("/admin/role/{id}/edit")
     public String editRole(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("activePage", "Role");
-        model.addAttribute("role",
+        model.addAttribute("roleRepr",
                 roleService.findById(id).orElseThrow(new NotFoundException("Role")));
         return "role";
     }
 
     @PostMapping("/admin/role/update")
-    public String updateRole(@Valid RoleRepr role, BindingResult bindingResult, Model model) {
+    public String updateRole(@Valid RoleRepr roleRepr, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("activePage", "Role");
             return "role";
         }
-        roleService.save(role);
+        roleService.save(roleRepr);
         return "redirect:/admin/roles";
     }
 

@@ -15,22 +15,18 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Необходимо указать логин")
     @Column(name = "name")
     private String name;
 
-    @NotBlank(message = "Необходимо указать пароль")
     @Column(name = "password")
     private String password;
 
-    @Email(message = "Проверте указанный почтовый адрес")
     @Column
     private String email;
 
     @Column
     private Integer age;
 
-    @NotEmpty(message = "Необходимо выбрать роли для юзера")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",

@@ -4,6 +4,7 @@ import org.avbolikov.shop.entity.users.Role;
 import org.avbolikov.shop.entity.users.User;
 import org.springframework.security.core.GrantedAuthority;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class RoleRepr implements GrantedAuthority, Serializable {
 
     private Integer id;
 
+    @NotBlank(message = "Поле \"Наименование роли\" обязательно для заполнения")
     private String name;
 
     public List<User> users;

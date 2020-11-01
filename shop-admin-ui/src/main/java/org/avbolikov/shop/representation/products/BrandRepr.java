@@ -5,14 +5,15 @@ import org.avbolikov.shop.entity.products.Product;
 import org.avbolikov.shop.representation.PictureRepr;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BrandRepr implements Serializable {
 
     private Integer id;
 
+    @NotBlank(message = "Необходимо указать наименование бренда")
     private String name;
 
     private List<Product> products;

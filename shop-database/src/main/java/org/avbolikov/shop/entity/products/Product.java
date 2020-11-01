@@ -17,11 +17,9 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Необходимо указать наименование продукта")
     @Column(name = "name")
     private String name;
 
-    @NotBlankBigDecimal(message = "Значение должно быть > 0")
     @Column(name = "cost")
     private BigDecimal cost;
 
