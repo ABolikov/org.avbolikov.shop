@@ -13,21 +13,34 @@
     <div th:replace="~{fragmentsAdmin :: menu}"></div>
 
     <div class="content p-4">
-        <h2 class="mb-4"> Добавление нового бренда </h2>
-
+        <h2 class="mb-4">Добавление нового бренда</h2>
         <div class="card mb-4">
             <div class="card-body">
-                <form action="#" th:action="@{/admin/brand/add}" th:object="${brand}" method="post">
-                    <input type="hidden" class="form-control" th:field="*{id}">
+                <form action="#" th:action="@{/admin/brand/add}" th:object="${brandRepr}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" th:field="*{id}">
                     <div class="form-group">
                         <label>Наименование бренда</label>
                         <input type="text" class="form-control" th:field="*{name}" placeholder="Введите наименование бренда">
                         <label id="titleError" class="form-text text-error"
                                th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Validation error</label>
                     </div>
+                    <div class="form-group">
+                        <label for="newPictures">Логотип бренда</label>
+                        <input th:field="*{newPictures}" type="file" class="form-control" id="newPictures"
+                               placeholder="Upload new logo picture" multiple>
+                    </div>
                     <a class="btn btn-primary" th:href="@{/admin/brands}">Назад</a>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 </form>
+
+                <div class="container-fluid mb-4" th:if="${brandRepr.picture != null}">
+                    <div class="card-columns" style="column-count: 10">
+                        <div class="card">
+                            <div class="card-header">Изображение</div>
+                            <img class="card-img-bottom" th:src="@{/admin/picture/{pictureId}(pictureId=${brandRepr.picture.id})}" width="10%"/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

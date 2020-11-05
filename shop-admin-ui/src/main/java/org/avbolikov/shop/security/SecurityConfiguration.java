@@ -1,6 +1,6 @@
 package org.avbolikov.shop.security;
 
-import org.avbolikov.shop.repositories.UserRepository;
+import org.avbolikov.shop.service.users.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,16 +26,18 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public UserDetailsService userAuthService(UserRepository userRepository) {
-        return new UserAuthService(userRepository);
+    public UserDetailsService userAuthService(UserServiceImpl userService) {
+        return new UserAuthService(userService);
     }
 
     @Configuration
     public static class UiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests()
-                    .antMatchers("/", "/admin", "/admin/**").hasAnyRole("ADMIN")
+            http
+                    .authorizeRequests()
+                    .antMatchers("/").permitAll()
+                    .antMatchers("/admin", "/admin/**").hasAnyRole("ADMIN")
                     .and()
                     .formLogin()
 //                    .usernameParameter("login")
@@ -43,7 +45,7 @@ public class SecurityConfiguration {
 //                    .loginProcessingUrl("/authentificateTheUser")
                     .and()
                     .logout()
-                    .logoutSuccessUrl("/index");
+                    .logoutSuccessUrl("/");
         }
     }
 }

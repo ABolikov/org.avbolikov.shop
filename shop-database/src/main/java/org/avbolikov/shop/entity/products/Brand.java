@@ -1,19 +1,21 @@
 package org.avbolikov.shop.entity.products;
 
+import org.avbolikov.shop.entity.pictures.Picture;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "brand")
-public class Brand {
+public class Brand implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Необходимо указать наименование бренда")
     @Column(name = "name")
     private String name;
 
@@ -22,6 +24,13 @@ public class Brand {
             fetch=FetchType.LAZY
     )
     private List<Product> products;
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            optional = false,
+            orphanRemoval = true)
+    @JoinColumn(name = "picture_id")
+    private Picture picture;
 
     public Brand() {
     }
@@ -55,22 +64,12 @@ public class Brand {
         this.products = products;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Brand brand = (Brand) o;
-
-        if (!Objects.equals(id, brand.id)) return false;
-        return Objects.equals(name, brand.name);
+    public Picture getPicture() {
+        return picture;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 
     @Override

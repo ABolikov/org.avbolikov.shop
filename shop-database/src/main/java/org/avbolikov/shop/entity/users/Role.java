@@ -1,29 +1,22 @@
 package org.avbolikov.shop.entity.users;
 
-
-import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "role")
-public class Role {
+public class Role implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Поле \"Наименование роли\" обязательно для заполнения")
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(
-            mappedBy = "roles",
-            fetch = FetchType.LAZY
-    )
+    @ManyToMany(mappedBy = "roles")
     public List<User> users;
 
     public Role() {
@@ -46,8 +39,8 @@ public class Role {
         return name;
     }
 
-    public void setName(String roleName) {
-        this.name = roleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<User> getUsers() {
@@ -56,28 +49,6 @@ public class Role {
 
     public void setUsers(List<User> users) {
         this.users = users;
-    }
-
-    public Role getRole() {
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Role role = (Role) o;
-
-        if (!Objects.equals(id, role.id)) return false;
-        return Objects.equals(name, role.name);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
     }
 
     @PreRemove

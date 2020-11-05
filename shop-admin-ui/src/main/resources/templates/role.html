@@ -13,16 +13,15 @@
     <div th:replace="~{fragmentsAdmin :: menu}"></div>
 
     <div class="content p-4">
-        <h2 class="mb-4"> Добавление новой роли </h2>
-
+        <h2 class="mb-4">Добавление новой роли</h2>
         <div class="card mb-4">
             <div class="card-body">
-                <form th:action="@{/admin/role/update}" method="post" th:object="${role}">
+                <form th:action="@{/admin/role/update}" method="post" th:object="${roleRepr}">
                     <input type="hidden" th:field="*{id}">
                     <div class="form-group">
                         <label>Наименование роли</label>
                         <input type="text" class="form-control" th:field="*{name}" placeholder="Введите наименование роли">
-                        <small id="loginError" class="form-text text-error"
+                        <small id="roleError" class="form-text text-error"
                                th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Validation error</small>
                     </div>
                     <a class="btn btn-primary" th:href="@{/admin/roles}">Назад</a>

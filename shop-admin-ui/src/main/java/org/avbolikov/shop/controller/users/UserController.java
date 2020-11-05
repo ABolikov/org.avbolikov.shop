@@ -1,68 +1,69 @@
 package org.avbolikov.shop.controller.users;
 
-import org.avbolikov.shop.entity.users.Role;
-import org.avbolikov.shop.entity.users.User;
 import org.avbolikov.shop.exception.NotFoundException;
-import org.avbolikov.shop.repositories.RoleRepository;
-import org.avbolikov.shop.repositories.UserRepository;
+import org.avbolikov.shop.representation.users.UserRepr;
+import org.avbolikov.shop.service.users.RoleServiceImpl;
+import org.avbolikov.shop.service.users.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+
+    private final UserServiceImpl userService;
+
+    private final RoleServiceImpl roleService;
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserController(UserServiceImpl userService, RoleServiceImpl roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @GetMapping("/admin/users")
-    public String allUsers(Model model) {
-        model.addAttribute("usersPage", userRepository.findAll());
+    public String getAllUsers(Model model) {
+        model.addAttribute("activePage", "User");
+        model.addAttribute("users", userService.findAll());
         return "users";
     }
 
     @GetMapping("/admin/users/add")
     public String addUser(Model model) {
-        model.addAttribute("user",  new User());
-        model.addAttribute("allRoles", roleRepository.findAll());
+        model.addAttribute("activePage", "User");
+        model.addAttribute("userRepr",  new UserRepr());
+        model.addAttribute("roles", roleService.findAll());
         return "user";
     }
 
     @GetMapping("/admin/user/{id}/edit")
     public String editUser(@PathVariable("id") Integer id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(new NotFoundException(null, "User"));
-        user.setPassword("");
-        model.addAttribute("user", user);
-        List<Role> roles = roleRepository.findAll();
-        model.addAttribute("allRoles", roles);
+        model.addAttribute("activePage", "User");
+        model.addAttribute("userRepr",
+                userService.findById(id).orElseThrow(new NotFoundException("User")));
+        model.addAttribute("roles", roleService.findAll());
         return "user";
     }
 
     @PostMapping("/admin/user/update")
-    public String updateUser(@Valid User user, BindingResult bindingResult, Model model) {
+    public String updateUser(@Valid UserRepr userRepr, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("allRoles", roleRepository.findAll());
+            model.addAttribute("activePage", "User");
+            model.addAttribute("roles", roleService.findAll());
             return "user";
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        userService.save(userRepr);
         return "redirect:/admin/users";
     }
 
     @DeleteMapping("/admin/user/{id}/delete")
     public String deleteUser(@PathVariable("id") Integer id) {
-        userRepository.deleteById(id);
+        userService.delete(id);
         return "redirect:/admin/users";
     }
+
 }

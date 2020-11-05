@@ -1,10 +1,10 @@
 INSERT INTO `user` (`name`, `password`)
-    VALUE ('admin', '$2y$12$46cr8yUIKCk044aKs.5.WeGPCiRLXNVaf47Oin7H/fDWpUCr7AUzm'),
-    ('guest', '$2y$12$DUWxb8vOIHJxCKgIDh3KzugHLL/lKa56iOq4H1/UIQ8kRT/jD4NY6');
+    VALUE ('admin', '$2y$12$ltdVoSeQJ89LvPPJgCnkcuieThLM1yLs2ngmGpwTxPJtA.uELeJN6'),
+    ('guest', '$2y$12$X5OixROKQLotXn7R8sd2wenQ9/PtEeSvgOcMXy7bFVGa.Hio9r/Vm');
 GO
 
 INSERT INTO `role` (`name`)
-    VALUE ('ADMIN'), ('GUEST');
+    VALUE ('ROLE_ADMIN'), ('ROLE_GUEST');
 GO
 
 INSERT INTO `user_role`(`user_id`, `role_id`)

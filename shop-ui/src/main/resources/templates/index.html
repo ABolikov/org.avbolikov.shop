@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/fragmentHome :: head}"></head>
+
+<body>
+
+<div class="super_container">
+    <!-- Header -->
+    <header th:replace="~{fragments/fragmentHome :: header}"></header>
+
+    <!-- Products -->
+    <div th:replace="~{fragments/fragmentHome :: products}"></div>
+
+    <!-- Footers -->
+    <div class="footer_overlay"></div>
+    <footer th:replace="~{fragments/fragmentHome :: footer}"></footer>
+</div>
+
+<script th:replace="~{fragments/fragmentHome :: script}"></script>
+
+</body>
+</html>
