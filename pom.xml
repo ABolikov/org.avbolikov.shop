@@ -17,6 +17,7 @@
 
     <modules>
         <module>shop-database</module>
+        <module>shop-pictures-service</module>
         <module>shop-admin-ui</module>
         <module>shop-ui</module>
     </modules>

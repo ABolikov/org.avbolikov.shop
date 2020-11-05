@@ -3,10 +3,8 @@ package org.avbolikov.shop.entity.products;
 import org.avbolikov.shop.entity.pictures.Picture;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "brand")

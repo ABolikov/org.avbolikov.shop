@@ -1,11 +1,10 @@
 package org.avbolikov.shop.controller;
 
-import org.avbolikov.shop.entity.pictures.Picture;
 import org.avbolikov.shop.exception.NotFoundException;
-import org.avbolikov.shop.repositories.PictureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.avbolikov.shop.service.PictureService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -15,23 +14,22 @@ import java.util.Optional;
 @RequestMapping("/admin/picture")
 public class PictureController {
 
-    private final PictureRepository pictureRepository;
+    private final PictureService pictureService;
 
     @Autowired
-    public PictureController(PictureRepository pictureRepository) {
-        this.pictureRepository = pictureRepository;
-
+    public PictureController(PictureService pictureService) {
+        this.pictureService = pictureService;
     }
 
     @GetMapping("/{pictureId}")
     private void downloadPicture(@PathVariable("pictureId") Integer pictureId,
                                  HttpServletResponse response) throws IOException {
-        Optional<Picture> picture = pictureRepository.findById(pictureId);
-        if (picture.isPresent()) {
-            response.setContentType(picture.get().getContentType());
-            response.getOutputStream().write(picture.get().getPictureData().getData());
-            return;
+        Optional<String> optional = pictureService.getPictureContentTypeById(pictureId);
+        if (optional.isPresent()) {
+            response.setContentType(optional.get());
+            response.getOutputStream().write(pictureService.getPictureDataById(pictureId).get());
+        } else {
+            throw new NotFoundException("Picture");
         }
-        throw new NotFoundException("Picture");
     }
 }

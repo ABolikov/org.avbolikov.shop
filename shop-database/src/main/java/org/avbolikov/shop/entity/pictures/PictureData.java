@@ -16,15 +16,21 @@ public class PictureData  implements Serializable {
     @Lob //для добавления Blob поля через hibernate
     @Type(type="org.hibernate.type.BinaryType") // для правильной работы PostgreSQL
     @Column(name = "data",
-            nullable = false,
             length = 33554430) // для правильной hibernate-валидации в MySQL
     private byte[] data;
+
+    @Column(name = "file_name")
+    private String fileName;
 
     public PictureData() {
     }
 
     public PictureData(byte[] data) {
         this.data = data;
+    }
+
+    public PictureData(String fileName) {
+        this.fileName = fileName;
     }
 
     public Integer getId() {
@@ -41,5 +47,13 @@ public class PictureData  implements Serializable {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

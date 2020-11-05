@@ -1,7 +1,6 @@
 package org.avbolikov.shop.service.products;
 
 import org.avbolikov.shop.entity.pictures.Picture;
-import org.avbolikov.shop.entity.pictures.PictureData;
 import org.avbolikov.shop.entity.products.Product;
 import org.avbolikov.shop.repositories.ProductRepository;
 import org.avbolikov.shop.representation.products.ProductRepr;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.avbolikov.shop.service.PictureService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,10 +22,12 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final PictureService pictureService;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, PictureService pictureService) {
         this.productRepository = productRepository;
+        this.pictureService = pictureService;
     }
 
     @Override
@@ -64,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
                         product.getPictures().add(new Picture(
                                 newPicture.getOriginalFilename(),
                                 newPicture.getContentType(),
-                                new PictureData(newPicture.getBytes())));
+                                pictureService.createPictureData(newPicture.getBytes())));
                     } catch (IOException exception) {
                         exception.fillInStackTrace();
                     }

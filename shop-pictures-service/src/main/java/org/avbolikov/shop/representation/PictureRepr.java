@@ -12,9 +12,6 @@ public class PictureRepr implements Serializable {
 
     private String contentType;
 
-    public PictureRepr() {
-    }
-
     public PictureRepr(Picture picture) {
         this.id = picture.getId();
         this.name = picture.getName();
@@ -33,8 +30,8 @@ public class PictureRepr implements Serializable {
         return name;
     }
 
-    public void setName(String roleName) {
-        this.name = roleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getContentType() {
