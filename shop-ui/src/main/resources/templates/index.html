@@ -2,23 +2,36 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="~{fragments/fragmentHome :: head}"></head>
+<head th:replace="~{fragments/head :: head}"></head>
 
 <body>
+    <!-- Search Wrapper Area Start -->
+    <div th:replace="~{fragments/search :: search}"></div>
+    <!-- Search Wrapper Area End -->
 
-<div class="super_container">
-    <!-- Header -->
-    <header th:replace="~{fragments/fragmentHome :: header}"></header>
+    <!-- ##### Main Content Wrapper Start ##### -->
+    <div class="main-content-wrapper d-flex clearfix">
 
-    <!-- Products -->
-    <div th:replace="~{fragments/fragmentHome :: products}"></div>
+        <!-- Mobile Nav (max width 767px)-->
+        <div th:replace="~{fragments/menu :: mobile_header}"></div>
 
-    <!-- Footers -->
-    <div class="footer_overlay"></div>
-    <footer th:replace="~{fragments/fragmentHome :: footer}"></footer>
-</div>
+        <!-- Header Area Start -->
+        <header th:replace="~{fragments/menu :: header}"></header>
+        <!-- Header Area End -->
 
-<script th:replace="~{fragments/fragmentHome :: script}"></script>
+        <!-- Product Catagories Area Start -->
+        <div th:replace="~{fragments/brands :: brands}"></div>
+        <!-- Product Catagories Area End -->
+    </div>
+    <!-- ##### Main Content Wrapper End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
+    <script th:replace="~{fragments/scripts :: script}"></script>
 
 </body>
+
 </html>
