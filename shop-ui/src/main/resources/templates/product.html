@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body>
+<!-- Search Wrapper Area Start -->
+<div th:replace="~{fragments/search :: search}"></div>
+<!-- Search Wrapper Area End -->
+
+<!-- ##### Main Content Wrapper Start ##### -->
+<div class="main-content-wrapper d-flex clearfix">
+
+    <!-- Mobile Nav (max width 767px)-->
+    <div th:replace="~{fragments/menu :: mobile_header}"></div>
+
+    <!-- Header Area Start -->
+    <header th:replace="~{fragments/menu :: header}"></header>
+    <!-- Header Area End -->
+
+    <!-- Product Details Area Start -->
+    <div class="single-product-area section-padding-100 clearfix">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mt-50">
+                            <li class="breadcrumb-item">
+                                <a th:href="@{/index}">Spring Shop</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a th:href="@{/products}" th:text="${product.brand.name}">Бренд</a>
+                            </li>
+                            <li class="breadcrumb-item active"
+                                aria-current="page" th:text="${product.name}">Наименование товара
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-7">
+                    <div class="single_product_thumb">
+                        <div id="product_details_slider" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators" th:if="${product.pictures.size() == 0}">
+                                <li data-target="#product_details_slider"
+                                    class="active" data-slide-to="0"
+                                    th:style="'background-image: url(' + @{/img/core-img/notPicture.png} + ');'">
+                                </li>
+                            </ol>
+                            <ol class="carousel-indicators" th:if="${product.pictures.size() > 1}">
+                                <li data-target="#product_details_slider"
+                                    th:each="picture,iterStat : ${product.pictures}"
+                                    th:class="${iterStat.index == 0}? 'active'"
+                                    th:data-slide-to="${iterStat.index}"
+                                    th:style="'background-image: url(' + @{/admin/picture/{pictureId}(pictureId=${picture.id})} + ');'">
+                                </li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div th:each="picture,iterStat : ${product.pictures}"
+                                     th:class="${iterStat.index == 0}? 'carousel-item active': 'carousel-item'">
+                                    <a class="gallery_img"
+                                       th:href="@{/admin/picture/{pictureId}(pictureId=${picture.id})}">
+                                        <img class="d-block w-100"
+                                             th:src="@{/admin/picture/{pictureId}(pictureId=${picture.id})}"
+                                             alt="Изображение">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-5">
+                    <div class="single_product_desc">
+                        <!-- Product Meta Data -->
+                        <div class="product-meta-data">
+                            <div class="line"></div>
+                            <p class="product-price" th:text="₽ + ' ' + ${product.cost}">Цена</p>
+                            <a href="product-details.html">
+                                <h6 th:text="${product.name}">Наименование товара</h6>
+                            </a>
+                            <!-- Ratings & Review -->
+                            <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
+                                <div class="ratings">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                <div class="review">
+                                    <a href="#">Write A Review</a>
+                                </div>
+                            </div>
+                            <!-- Avaiable -->
+                            <p class="avaibility"><i class="fa fa-circle"></i> In Stock</p>
+                        </div>
+
+                        <div class="short_overview my-5">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                Aliquid quae eveniet culpa officia quidem mollitia impedit iste
+                                asperiores nisi reprehenderit consequatur, autem, nostrum pariatur enim?</p>
+                        </div>
+
+                        <!-- Add to Cart Form -->
+                        <form class="cart clearfix" method="post">
+                            <div class="cart-btn d-flex mb-50">
+                                <p>Qty</p>
+                                <div class="quantity">
+                                        <span class="qty-minus" onclick="var effect = document.getElementById('qty');
+                                        var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;">
+                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                        </span>
+                                    <input type="number" class="qty-text" id="qty" step="1" min="1" max="300"
+                                           name="quantity" value="1">
+                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty');
+                                        var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;">
+                                            <i class="fa fa-caret-up" aria-hidden="true"></i>
+                                        </span>
+                                </div>
+                            </div>
+                            <button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Product Details Area End -->
+</div>
+<!-- ##### Main Content Wrapper End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<!-- ##### Footer Area End ##### -->
+
+<!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
+<script th:replace="~{fragments/scripts :: script}"></script>
+
+</body>
+
+</html>
