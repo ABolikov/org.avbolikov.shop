@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+</head>
+
+<body>
+<div class="products-catagories-area clearfix" th:fragment="products">
+    <div class="amado-pro-catagory clearfix">
+
+        <div th:each="product : ${products}">
+            <!-- Single Catagory -->
+            <div class="single-products-catagory clearfix">
+                <a th:if="${product.pictures.size() > 0}" href="shop.html">
+                    <div th:each="picture : ${product.pictures}">
+                        <img class="card-img-bottom" th:src="@{/admin/picture/{pictureId}(pictureId=${picture.id})}"
+                             width="40%"/>
+                    </div>
+                    <!-- Hover Content -->
+                    <div class="hover-content">
+                        <div class="line"></div>
+                        <p th:text="₽ + ${product.cost}">Цена</p>
+                        <h4 th:text="${product.name}">Наименование товара</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+        <!--        &lt;!&ndash; Single Catagory &ndash;&gt;-->
+        <!--        <div class="single-products-catagory clearfix">-->
+        <!--            <a href="products.html">-->
+        <!--                <img src="img/bg-img/2.jpg" alt="">-->
+        <!--                &lt;!&ndash; Hover Content &ndash;&gt;-->
+        <!--                <div class="hover-content">-->
+        <!--                    <div class="line"></div>-->
+        <!--                    <p>From $180</p>-->
+        <!--                    <h4>Minimalistic Plant Pot</h4>-->
+        <!--                </div>-->
+        <!--            </a>-->
+        <!--        </div>-->
+    </div>
+</div>
+</body>
+
+</html>

@@ -17,6 +17,7 @@
 
     <modules>
         <module>shop-database</module>
+        <module>shop-pictures-service</module>
         <module>shop-admin-ui</module>
         <module>shop-ui</module>
     </modules>
@@ -24,6 +25,7 @@
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
 </project>

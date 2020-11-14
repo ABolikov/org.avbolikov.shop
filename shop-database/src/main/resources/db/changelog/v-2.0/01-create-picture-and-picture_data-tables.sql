@@ -16,7 +16,6 @@ CREATE TABLE `picture`
     UNIQUE KEY `UK_ehsu2tyinopypjox1ijxt3g3c` (`picture_data_id`),
     CONSTRAINT `FKe9cv52k04xoy6cj8xy308gnw3` FOREIGN KEY (`picture_data_id`) REFERENCES `picture_data` (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 13
   DEFAULT CHARSET = latin1;
 GO
 

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+</head>
+
+<body>
+<div class="products-catagories-area clearfix" th:fragment="brands">
+    <div class="amado-pro-catagory clearfix">
+
+        <div th:each="brand : ${brands}">
+            <div class="single-products-catagory clearfix">
+                <a th:href="@{/products}">
+                    <div>
+                        <img class="card-img-bottom" th:if="${brand.picture != null}"
+                             th:src="@{/admin/picture/{pictureId}(pictureId=${brand.picture.id})}"
+                             width="50%"/>
+                        <img class="card-img-bottom" th:if="${brand.picture == null}"
+                             th:src="@{/img/core-img/notPicture.png}"
+                             width="50%"/>
+                    </div>
+                    <div class="hover-content">
+                        <div class="line"></div>
+                        <h4 th:text="${brand.name}">Наименование бренда</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

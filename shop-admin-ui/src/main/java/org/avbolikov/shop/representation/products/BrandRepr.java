@@ -2,8 +2,8 @@ package org.avbolikov.shop.representation.products;
 
 import org.avbolikov.shop.entity.products.Brand;
 import org.avbolikov.shop.entity.products.Product;
-import org.avbolikov.shop.representation.PictureRepr;
 import org.springframework.web.multipart.MultipartFile;
+import org.avbolikov.shop.representation.PictureRepr;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
