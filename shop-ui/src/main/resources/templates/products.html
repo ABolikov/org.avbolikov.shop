@@ -114,20 +114,20 @@
                     <div class="single-product-wrapper">
                         <!-- Product Image -->
                         <a th:href="@{/product/{id}(id=${product.id})}">
-                            <div class="product-img" th:if="${product.pictures.size() == 0}">
+                            <div class="product-img" th:if="${product.pictureIds.size() == 0}">
                                 <div>
                                     <img th:src="@{/img/core-img/notPicture.png}" alt="Изображение">
                                 </div>
                             </div>
                             <!-- Product Image -->
-                            <div class="product-img" th:if="${product.pictures.size() >= 1}">
-                                <div th:each="picture,iterStat : ${product.pictures}">
+                            <div class="product-img" th:if="${product.pictureIds.size() >= 1}">
+                                <div th:each="picture,iterStat : ${product.pictureIds}">
                                     <img th:if="${iterStat.first}"
-                                         th:src="@{/admin/picture/{pictureId}(pictureId=${picture.id})}"
+                                         th:src="@{/admin/picture/{pictureId}(pictureId=${picture})}"
                                          alt="Изображение">
                                     <!-- Hover Thumb -->
                                     <img class="hover-img" th:if="${iterStat.index == 1}"
-                                         th:src="@{/admin/picture/{pictureId}(pictureId=${picture.id})}"
+                                         th:src="@{/admin/picture/{pictureId}(pictureId=${picture})}"
                                          alt="Изображение">
                                 </div>
                             </div>
@@ -152,9 +152,13 @@
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </div>
                                 <div class="cart">
-                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Добавит в корзину">
-                                        <img th:src="@{/img/core-img/cart.png}" alt="Купить">
-                                    </a>
+                                    <form th:action="@{/product}" th:method="post">
+                                        <input type="hidden" name="qty" value="1"/>
+                                        <input type="hidden" name="productId" th:value="${product.id}">
+                                        <button data-toggle="tooltip" data-placement="left" title="Добавит в корзину">
+                                            <img th:src="@{/img/core-img/cart.png}" alt="Купить">
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

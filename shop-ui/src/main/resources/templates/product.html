@@ -30,7 +30,7 @@
                                 <a th:href="@{/index}">Spring Shop</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a th:href="@{/products}" th:text="${product.brand.name}">Бренд</a>
+                                <a th:href="@{/products}" th:text="${product.brandName}">Бренд</a>
                             </li>
                             <li class="breadcrumb-item active"
                                 aria-current="page" th:text="${product.name}">Наименование товара
@@ -43,27 +43,27 @@
                 <div class="col-12 col-lg-7">
                     <div class="single_product_thumb">
                         <div id="product_details_slider" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators" th:if="${product.pictures.size() == 0}">
+                            <ol class="carousel-indicators" th:if="${product.pictureIds.size() == 0}">
                                 <li data-target="#product_details_slider"
                                     class="active" data-slide-to="0"
                                     th:style="'background-image: url(' + @{/img/core-img/notPicture.png} + ');'">
                                 </li>
                             </ol>
-                            <ol class="carousel-indicators" th:if="${product.pictures.size() > 1}">
+                            <ol class="carousel-indicators" th:if="${product.pictureIds.size() > 1}">
                                 <li data-target="#product_details_slider"
-                                    th:each="picture,iterStat : ${product.pictures}"
+                                    th:each="picture,iterStat : ${product.pictureIds}"
                                     th:class="${iterStat.index == 0}? 'active'"
                                     th:data-slide-to="${iterStat.index}"
-                                    th:style="'background-image: url(' + @{/admin/picture/{pictureId}(pictureId=${picture.id})} + ');'">
+                                    th:style="'background-image: url(' + @{/admin/picture/{pictureId}(pictureId=${picture})} + ');'">
                                 </li>
                             </ol>
                             <div class="carousel-inner">
-                                <div th:each="picture,iterStat : ${product.pictures}"
+                                <div th:each="picture,iterStat : ${product.pictureIds}"
                                      th:class="${iterStat.index == 0}? 'carousel-item active': 'carousel-item'">
                                     <a class="gallery_img"
-                                       th:href="@{/admin/picture/{pictureId}(pictureId=${picture.id})}">
+                                       th:href="@{/admin/picture/{pictureId}(pictureId=${picture})}">
                                         <img class="d-block w-100"
-                                             th:src="@{/admin/picture/{pictureId}(pictureId=${picture.id})}"
+                                             th:src="@{/admin/picture/{pictureId}(pictureId=${picture})}"
                                              alt="Изображение">
                                     </a>
                                 </div>
@@ -98,29 +98,30 @@
                         </div>
 
                         <div class="short_overview my-5">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Aliquid quae eveniet culpa officia quidem mollitia impedit iste
-                                asperiores nisi reprehenderit consequatur, autem, nostrum pariatur enim?</p>
+                            <p>Тут будет описание товара</p>
                         </div>
 
                         <!-- Add to Cart Form -->
-                        <form class="cart clearfix" method="post">
+                        <form class="cart clearfix" th:action="@{/product}" th:method="post">
+                            <input type="hidden" name="productId" th:value="${product.id}">
                             <div class="cart-btn d-flex mb-50">
-                                <p>Qty</p>
+                                <p>Количество</p>
                                 <div class="quantity">
-                                        <span class="qty-minus" onclick="var effect = document.getElementById('qty');
-                                        var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;">
+                                        <span class="qty-minus"
+                                              onclick="var effect = document.getElementById('qty');
+                                              var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;
+                                              return false;">
                                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                                         </span>
-                                    <input type="number" class="qty-text" id="qty" step="1" min="1" max="300"
-                                           name="quantity" value="1">
-                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty');
-                                        var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;">
-                                            <i class="fa fa-caret-up" aria-hidden="true"></i>
+                                    <input type="number" class="qty-text" step="1" min="1" max="300" id="qty" name="qty" th:value="${param.qty}">
+                                    <span class="qty-plus"
+                                          onclick="var effect = document.getElementById('qty');
+                                          var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;">
+                                        <i class="fa fa-caret-up" aria-hidden="true"></i>
                                         </span>
                                 </div>
                             </div>
-                            <button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button>
+                            <button type="submit" name="addtocart" value="5" class="btn amado-btn">Добавить в карзину</button>
                         </form>
 
                     </div>
