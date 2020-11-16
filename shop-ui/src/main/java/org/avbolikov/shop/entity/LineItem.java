@@ -1,6 +1,7 @@
-package org.avbolikov.shop.representation;
+package org.avbolikov.shop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.avbolikov.shop.representation.ProductRepr;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

@@ -1,6 +1,6 @@
 package org.avbolikov.shop.service;
 
-import org.avbolikov.shop.representation.LineItem;
+import org.avbolikov.shop.entity.LineItem;
 import org.avbolikov.shop.representation.ProductRepr;
 
 import java.io.Serializable;

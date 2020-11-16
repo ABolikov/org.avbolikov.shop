@@ -16,7 +16,7 @@
     <div th:replace="~{fragments/menu :: mobile_header}"></div>
 
     <!-- Header Area Start -->
-    <header th:replace="~{fragments/menu :: header}"></header>
+    <header th:replace="~{fragments/menu :: header (${lineItems})}"></header>
     <!-- Header Area End -->
 
     <!-- Product Details Area Start -->
@@ -132,6 +132,10 @@
     <!-- Product Details Area End -->
 </div>
 <!-- ##### Main Content Wrapper End ##### -->
+
+<!-- ##### Chat Start ##### -->
+<div th:include="fragments/chat :: chat"></div>
+<!-- ##### Chat End ##### -->
 
 <!-- ##### Footer Area Start ##### -->
 <footer th:replace="~{fragments/footer :: footer}"></footer>

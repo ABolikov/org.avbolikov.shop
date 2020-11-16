@@ -1,6 +1,6 @@
 package org.avbolikov.shop.controller;
 
-import org.avbolikov.shop.representation.LineItem;
+import org.avbolikov.shop.entity.LineItem;
 import org.avbolikov.shop.service.CartService;
 import org.avbolikov.shop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package org.avbolikov.shop.controller;
 import org.avbolikov.shop.exception.NotFoundException;
 import org.avbolikov.shop.repositories.BrandRepository;
 import org.avbolikov.shop.repositories.CategoryRepository;
-import org.avbolikov.shop.representation.LineItem;
+import org.avbolikov.shop.entity.LineItem;
 import org.avbolikov.shop.service.CartServiceImpl;
 import org.avbolikov.shop.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +41,7 @@ public class SpringShopController {
     public String getHomePage(Model model) {
         model.addAttribute("activePage", "Home");
         model.addAttribute("brands", brandRepository.findAll());
+        model.addAttribute("lineItems", cartService.getLineItems());
         return "index";
     }
 
@@ -50,12 +51,14 @@ public class SpringShopController {
         model.addAttribute("products", productService.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("brands", brandRepository.findAll());
+        model.addAttribute("lineItems", cartService.getLineItems());
         return "products";
     }
 
     @GetMapping("/product/{id}")
     public String getBrand(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("product", productService.findById(id).orElseThrow(new NotFoundException("Product")));
+        model.addAttribute("lineItems", cartService.getLineItems());
         return "product";
     }
 

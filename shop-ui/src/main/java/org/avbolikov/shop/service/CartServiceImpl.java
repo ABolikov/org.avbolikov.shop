@@ -3,7 +3,7 @@ package org.avbolikov.shop.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.avbolikov.shop.representation.LineItem;
+import org.avbolikov.shop.entity.LineItem;
 import org.avbolikov.shop.representation.ProductRepr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @Scope(scopeName = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CartServiceImpl implements CartService {
 
+    //Версия класса для сериализации
     private static final long serialVersionUID = -9025621122549454991L;
 
     private static final Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);
@@ -30,7 +31,6 @@ public class CartServiceImpl implements CartService {
 
     @PostConstruct
     public void post() {
-        //"Проверить это в логах"
         logger.info("Session bean post construct");
     }
 

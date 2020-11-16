@@ -16,7 +16,7 @@
     <div th:replace="~{fragments/menu :: mobile_header}"></div>
 
     <!-- Header Area Start -->
-    <header th:replace="~{fragments/menu :: header}"></header>
+    <header th:replace="~{fragments/menu :: header (${lineItems})}"></header>
     <!-- Header Area End -->
 
     <div class="shop_sidebar_area">
@@ -180,6 +180,10 @@
             </div>
         </div>
     </div>
+
+    <!-- ##### Chat Start ##### -->
+    <div th:include="fragments/chat :: chat"></div>
+    <!-- ##### Chat End ##### -->
 
     <!-- ##### Footer Area Start ##### -->
     <footer th:replace="~{fragments/footer :: footer}"></footer>
