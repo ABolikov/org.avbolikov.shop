@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body>
+<!-- Search Wrapper Area Start -->
+<div th:replace="~{fragments/search :: search}"></div>
+<!-- Search Wrapper Area End -->
+
+<!-- ##### Main Content Wrapper Start ##### -->
+<div class="main-content-wrapper d-flex clearfix">
+
+    <!-- Mobile Nav (max width 767px)-->
+    <div th:replace="~{fragments/menu :: mobile_header}"></div>
+
+    <!-- Header Area Start -->
+    <header th:replace="~{fragments/menu :: header (${lineItems})}"></header>
+    <!-- Header Area End -->
+
+    <div class="cart-table-area section-padding-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <div class="cart-title mt-50">
+                        <h2>Ваша корзина</h2>
+                    </div>
+
+                    <div class="cart-table clearfix">
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th>Товар</th>
+                                <th>Цена</th>
+                                <th>Количество</th>
+                                <th>Сумма</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="lineItem : ${lineItems}">
+                                <td class="cart_product_img">
+                                    <form th:action="@{/cart}" th:method="delete">
+                                        <input type="hidden" name="productId" th:value="${lineItem.productId}"/>
+                                        <button type="submit" class="btn">x</button>
+                                    </form>
+                                    <img th:if="${lineItem.productRepr.pictureIds.size() == 0}"
+                                         th:src="@{/img/core-img/notPicture.png}" alt="Изображение">
+                                    <img th:if="${lineItem.productRepr.pictureIds.size() > 0}"
+                                         th:src="@{/admin/picture/{pictureId}(pictureId=${lineItem.productRepr.pictureIds.get(0)})}" alt="Изображение товара"/>
+                                    <h5><a href="#" th:text="${lineItem.productRepr.name}">Наименование товара</a></h5>
+                                </td>
+                                <td class="price">
+                                    <span>₽[[${lineItem.productRepr.cost}]]</span>
+                                </td>
+                                <td class="qty">
+                                    <div class="qty-btn d-flex">
+                                        <div class="quantity">
+                                            <span class="qty-minus"
+                                                  onclick="var effect = document.getElementById('qty');
+                                                  var qty = effect.value;
+                                                  if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;
+                                                  return false;">
+                                                <i class="fa fa-minus" aria-hidden="true"></i></span>
+                                            <input type="number" class="qty-text" id="qty" step="1" min="1" max="300"
+                                                   name="quantity" th:value="${lineItem.qty}">
+                                            <span class="qty-plus"
+                                                  onclick="var effect = document.getElementById('qty');
+                                                  var qty = effect.value;
+                                                  if( !isNaN( qty )) effect.value++;
+                                                  return false;">
+                                                <i class="fa fa-plus" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="price">
+                                    <span>₽[[${lineItem.total}]]</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="cart-summary">
+                        <h5>Стоимость</h5>
+                        <ul class="summary-table">
+                            <li><span>Сумма:</span> <span>₽[[${subTotal}]]</span></li>
+                            <li><span>Доставка:</span> <span>Цена доставки</span></li>
+                            <li><span>Итоговая стоимость:</span> <span>₽[[${subTotal}]]</span></li>
+                        </ul>
+                        <div class="cart-btn mt-100">
+                            <a href="#" class="btn amado-btn w-100">Купить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Main Content Wrapper End ##### -->
+
+<!-- ##### Chat Start ##### -->
+<div th:include="fragments/chat :: chat"></div>
+<!-- ##### Chat End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<!-- ##### Footer Area End ##### -->
+
+<!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
+<script th:replace="~{fragments/scripts :: script}"></script>
+
+</body>
+
+</html>
