@@ -11,7 +11,7 @@
 
         <div th:each="brand : ${brands}">
             <div class="single-products-catagory clearfix">
-                <a th:href="@{/products}">
+                <a th:href="@{/products?brand={brand}(brand=${brand.id})}">
                     <div>
                         <img class="card-img-bottom" th:if="${brand.picture != null}"
                              th:src="@{/admin/picture/{pictureId}(pictureId=${brand.picture.id})}"

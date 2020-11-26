@@ -1,9 +1,11 @@
 package org.avbolikov.shop.service;
 
+import org.avbolikov.shop.entity.products.Product;
 import org.avbolikov.shop.repositories.ProductRepository;
 import org.avbolikov.shop.representation.ProductRepr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +24,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductRepr> findAll() {
+    public List<ProductRepr> findAll(Specification<Product> specification) {
         logger.info("Product findAll call");
-        return productRepository.findAll().stream()
+        return productRepository.findAll(specification).stream()
                 .map(ProductRepr::new)
                 .collect(Collectors.toList());
     }
