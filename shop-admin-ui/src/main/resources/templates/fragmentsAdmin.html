@@ -36,7 +36,7 @@
 <!--            <li class="nav-item"><a href="#" class="nav-link"> <i class="fa fa-bell"> </i> 3 </a></li>-->
             <li class="раскрывающийся список nav-item">
                 <a href="#" id="dd_user" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-user"> <span sec:authentication="principal.username">Username</span></i>
+                    <i class="fa fa-user"> <span sec:authorize="isAuthenticated()" sec:authentication="principal.username">Username</span></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd_user">
                     <div sec:authorize="not isAuthenticated()">

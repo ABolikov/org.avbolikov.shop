@@ -14,7 +14,7 @@
                 <a th:href="@{/products?brand={brand}(brand=${brand.id})}">
                     <div>
                         <img class="card-img-bottom" th:if="${brand.picture != null}"
-                             th:src="@{/admin/picture/{pictureId}(pictureId=${brand.picture.id})}"
+                             th:src="@{{pictureServiceUrl}/admin/picture/{pictureId}(pictureId=${brand.picture.id}, pictureServiceUrl=${pictureServiceUrl})}"
                              width="50%"/>
                         <img class="card-img-bottom" th:if="${brand.picture == null}"
                              th:src="@{/img/core-img/notPicture.png}"

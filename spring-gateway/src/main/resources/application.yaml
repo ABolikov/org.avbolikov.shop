@@ -1,0 +1,28 @@
+server:
+  port: 8079
+
+#Cсылка на eureka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+
+spring:
+#Имя приложение (обязательно для указания, если ьудет регситарция в eureka)
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+#Пути балансировщика
+      routes:
+#На каком сервисе мы хотим распределять нагрузку
+        - id: picture-service
+          uri: lb://PICTURE-SERVICE
+#Урлы для доступа (шаблок URL по кторому приложение должно быть доступно)
+          predicates:
+            - Path=/picture-service/admin/picture/**
+#Обрезаем префикс
+          filters:
+            - StripPrefix=1
+

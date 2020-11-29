@@ -47,7 +47,7 @@
                                     <img th:if="${lineItem.productRepr.pictureIds.size() == 0}"
                                          th:src="@{/img/core-img/notPicture.png}" alt="Изображение">
                                     <img th:if="${lineItem.productRepr.pictureIds.size() > 0}"
-                                         th:src="@{/admin/picture/{pictureId}(pictureId=${lineItem.productRepr.pictureIds.get(0)})}" alt="Изображение товара"/>
+                                         th:src="@{{pictureServiceUrl}/admin/picture/{pictureId}(pictureId=${lineItem.productRepr.pictureIds.get(0)}, pictureServiceUrl=${pictureServiceUrl})}" alt="Изображение товара"/>
                                     <h5><a href="#" th:text="${lineItem.productRepr.name}">Наименование товара</a></h5>
                                 </td>
                                 <td class="price">

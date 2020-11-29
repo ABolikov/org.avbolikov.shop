@@ -54,16 +54,16 @@
                                     th:each="picture,iterStat : ${product.pictureIds}"
                                     th:class="${iterStat.index == 0}? 'active'"
                                     th:data-slide-to="${iterStat.index}"
-                                    th:style="'background-image: url(' + @{/admin/picture/{pictureId}(pictureId=${picture})} + ');'">
+                                    th:style="'background-image: url(' + @{{pictureServiceUrl}/admin/picture/{pictureId}(pictureId=${picture}, pictureServiceUrl=${pictureServiceUrl})} + ');'">
                                 </li>
                             </ol>
                             <div class="carousel-inner">
                                 <div th:each="picture,iterStat : ${product.pictureIds}"
                                      th:class="${iterStat.index == 0}? 'carousel-item active': 'carousel-item'">
                                     <a class="gallery_img"
-                                       th:href="@{/admin/picture/{pictureId}(pictureId=${picture})}">
+                                       th:href="@{{pictureServiceUrl}/admin/picture/{pictureId}(pictureId=${picture}, pictureServiceUrl=${pictureServiceUrl})}">
                                         <img class="d-block w-100"
-                                             th:src="@{/admin/picture/{pictureId}(pictureId=${picture})}"
+                                             th:src="@{{pictureServiceUrl}/admin/picture/{pictureId}(pictureId=${picture}, pictureServiceUrl=${pictureServiceUrl})}"
                                              alt="Изображение">
                                     </a>
                                 </div>

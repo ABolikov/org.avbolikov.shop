@@ -119,11 +119,11 @@
                             <div class="product-img" th:if="${product.pictureIds.size() >= 1}">
                                 <div th:each="picture,iterStat : ${product.pictureIds}">
                                     <img th:if="${iterStat.first}"
-                                         th:src="@{/admin/picture/{pictureId}(pictureId=${picture})}"
+                                         th:src="@{{pictureServiceUrl}/admin/picture/{pictureId}(pictureId=${picture}, pictureServiceUrl=${pictureServiceUrl})}"
                                          alt="Изображение">
                                     <!-- Hover Thumb -->
                                     <img class="hover-img" th:if="${iterStat.index == 1}"
-                                         th:src="@{/admin/picture/{pictureId}(pictureId=${picture})}"
+                                         th:src="@{{pictureServiceUrl}/admin/picture/{pictureId}(pictureId=${picture}, pictureServiceUrl=${pictureServiceUrl})}"
                                          alt="Изображение">
                                 </div>
                             </div>
