@@ -1,5 +1,6 @@
 package org.avbolikov.shop.specification;
 
+import org.avbolikov.shop.entity.products.Brand;
 import org.avbolikov.shop.entity.products.Product;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -17,6 +18,16 @@ public final class ProductSpecification {
         } else {
             return (root, query, criteriaBuilder) -> query.orderBy(criteriaBuilder.asc(root.get("id"))).getRestriction();
         }
+    }
+
+    public static Specification<Product> selectProductsInBrand(Brand brand) {
+//        CriteriaBuilder cb = new CriteriaBuilder()
+//        CriteriaQuery<Product> q = cb.createQuery(Product.class);
+//        Root<Product> products = q.from(Product.class);
+//        q.select(products);
+//        Integer parameter = id[0];
+//        q.where(cb.gt(products.get("brand_id"), parameter));;
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("brand").get("id"), brand.getId());
     }
 
     public static Specification<Product> productTitleLike(String name) {

@@ -37,7 +37,7 @@
                     <div class="card-columns" style="column-count: 10">
                         <div class="card">
                             <div class="card-header">Изображение</div>
-                            <img class="card-img-bottom" th:src="@{/admin/picture/{pictureId}(pictureId=${brandRepr.picture.id})}" width="10%"/>
+                            <img class="card-img-bottom" th:src="@{{pictureServiceUrl}/admin/picture/{pictureId}(pictureId=${brandRepr.picture.id}, pictureServiceUrl=${pictureServiceUrl})}" width="10%"/>
                         </div>
                     </div>
                 </div>

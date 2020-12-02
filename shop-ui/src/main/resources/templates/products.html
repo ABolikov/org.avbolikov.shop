@@ -22,29 +22,25 @@
     <div class="shop_sidebar_area">
 
         <!-- ##### Single Widget ##### -->
-        <div class="widget catagory mb-50">
-            <!-- Widget Title -->
-            <h6 class="widget-title mb-30">Категории товаров</h6>
-
-            <!--  Catagories  -->
-            <div class="catagories-menu">
-                <ul th:each="category : ${categories}">
-                    <!--                    <li class="active"><a href="#">Chairs</a></li>-->
-                    <li><a href="#" th:text="${category.name}">Категория</a></li>
-                </ul>
+        <div class="widget brands mb-50">
+            <h6 class="widget-title mb-30">Бренды</h6>
+            <div class="widget-desc">
+                <div class="form-check" th:each="brand : ${brands}">
+                    <input class="form-check-input" type="checkbox" name="brands"
+                           th:field="*{brands}" th:value="${brand.name}" th:id="${brand.name}">
+                    <label class="form-check-label" th:for="${brand.name}" th:text="${brand.name}">бренд</label>
+                </div>
             </div>
         </div>
 
         <!-- ##### Single Widget ##### -->
         <div class="widget brands mb-50">
-            <!-- Widget Title -->
-            <h6 class="widget-title mb-30">Бренды</h6>
+            <h6 class="widget-title mb-30">Категории товаров</h6>
             <div class="widget-desc">
-                <!-- Single Form Check -->
-                <div class="form-check" th:each="brand : ${brands}">
+                <div class="form-check" th:each="category : ${categories}">
                     <input class="form-check-input" type="checkbox" name="categories"
-                           th:field="*{brands}" th:value="${brand.name}" th:id="${brand.name}">
-                    <label class="form-check-label" th:for="${brand.name}" th:text="${brand.name}">бренд</label>
+                           th:field="*{categories}" th:value="${category.name}" th:id="${category.name}">
+                    <label class="form-check-label" th:for="${category.name}" th:text="${category.name}">бренд</label>
                 </div>
             </div>
         </div>
@@ -123,11 +119,11 @@
                             <div class="product-img" th:if="${product.pictureIds.size() >= 1}">
                                 <div th:each="picture,iterStat : ${product.pictureIds}">
                                     <img th:if="${iterStat.first}"
-                                         th:src="@{/admin/picture/{pictureId}(pictureId=${picture})}"
+                                         th:src="@{{pictureServiceUrl}/admin/picture/{pictureId}(pictureId=${picture}, pictureServiceUrl=${pictureServiceUrl})}"
                                          alt="Изображение">
                                     <!-- Hover Thumb -->
                                     <img class="hover-img" th:if="${iterStat.index == 1}"
-                                         th:src="@{/admin/picture/{pictureId}(pictureId=${picture})}"
+                                         th:src="@{{pictureServiceUrl}/admin/picture/{pictureId}(pictureId=${picture}, pictureServiceUrl=${pictureServiceUrl})}"
                                          alt="Изображение">
                                 </div>
                             </div>

@@ -1,17 +1,25 @@
 package org.avbolikov.shop.controller;
 
+import org.avbolikov.shop.entity.products.Brand;
+import org.avbolikov.shop.entity.products.Product;
 import org.avbolikov.shop.exception.NotFoundException;
 import org.avbolikov.shop.repositories.BrandRepository;
 import org.avbolikov.shop.repositories.CategoryRepository;
 import org.avbolikov.shop.entity.LineItem;
 import org.avbolikov.shop.service.CartServiceImpl;
 import org.avbolikov.shop.service.ProductServiceImpl;
+import org.avbolikov.shop.specification.ProductSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class SpringShopController {
@@ -46,11 +54,21 @@ public class SpringShopController {
     }
 
     @GetMapping("/products")
-    public String getProductsPage(Model model) {
+    public String getProductsPage(@RequestParam(value = "brand", required = false) Integer brandID,
+                                  Model model) {
+        Specification<Product> specification = ProductSpecification.trueLiteral();
+        List<Integer> brandsSelection = new ArrayList<>();
+        if (brandID != null) {
+            specification = specification.and(ProductSpecification
+                    .selectProductsInBrand(brandRepository.findById(brandID).orElseThrow(new NotFoundException("Brand"))));
+            brandsSelection.add(brandID);
+        }
+        model.addAttribute("products", productService.findAll(specification));
         model.addAttribute("activePage", "Products");
-        model.addAttribute("products", productService.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("brands", brandRepository.findAll());
+        System.out.println("БАВ" + brandsSelection.toString());
+        model.addAttribute("checked_brands", brandsSelection);
         model.addAttribute("lineItems", cartService.getLineItems());
         return "products";
     }
