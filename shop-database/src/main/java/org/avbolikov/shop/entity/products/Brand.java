@@ -50,8 +50,8 @@ public class Brand implements Serializable {
         return name;
     }
 
-    public void setName(String roleName) {
-        this.name = roleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Product> getProducts() {
