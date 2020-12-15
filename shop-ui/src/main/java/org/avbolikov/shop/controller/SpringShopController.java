@@ -1,6 +1,5 @@
 package org.avbolikov.shop.controller;
 
-import org.avbolikov.shop.entity.products.Brand;
 import org.avbolikov.shop.entity.products.Product;
 import org.avbolikov.shop.exception.NotFoundException;
 import org.avbolikov.shop.repositories.BrandRepository;
@@ -67,14 +66,13 @@ public class SpringShopController {
         model.addAttribute("activePage", "Products");
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("brands", brandRepository.findAll());
-        System.out.println("БАВ" + brandsSelection.toString());
         model.addAttribute("checked_brands", brandsSelection);
         model.addAttribute("lineItems", cartService.getLineItems());
         return "products";
     }
 
     @GetMapping("/product/{id}")
-    public String getBrand(@PathVariable("id") Integer id, Model model) {
+    public String getProduct(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("product", productService.findById(id).orElseThrow(new NotFoundException("Product")));
         model.addAttribute("lineItems", cartService.getLineItems());
         return "product";

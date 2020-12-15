@@ -52,7 +52,6 @@ public class CartServiceImpl implements CartService {
     @Override
     public void removeProductQty(ProductRepr productRepr, int qty) {
         LineItem lineItem = new LineItem(productRepr);
-        // TODO lineItems.merge переделапть в лямбду!!!
         int currentQty = lineItems.getOrDefault(lineItem, 0);
         if (currentQty - qty > 0) {
             lineItems.put(lineItem, currentQty - qty);
